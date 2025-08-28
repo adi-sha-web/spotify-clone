@@ -21,16 +21,16 @@ let folder = "";
 let namel = [];
 
 function plays(track) {
-      playsong.src = `/assets/song/${folder}/` + track;
+      playsong.src = `/public/assets/song/${folder}/` + track;
       playsong.play();
-      document.getElementById("bplay").src = "/assets/svg/pause.svg";
+      document.getElementById("bplay").src = "/public/assets/svg/pause.svg";
       function currenttk(tk) {
             document.querySelectorAll(".content ul li").forEach((e) => {
                   if (e.querySelector(".name").innerText == tk) {
-                        e.querySelector(".button img").src = "/assets/svg/pause.svg";
+                        e.querySelector(".button img").src = "/public/assets/svg/pause.svg";
                   }
                   else {
-                        e.querySelector(".button img").src = "/assets/svg/wplay.svg";
+                        e.querySelector(".button img").src = "/public/assets/svg/wplay.svg";
                   }
             });
       }
@@ -52,7 +52,7 @@ function formatSecondsToMinutes(seconds) {
 displayalbum();
 
 async function displayalbum() {
-      let load = await fetch(`/assets/song`);
+      let load = await fetch(`/public/assets/song`);
       let res = await load.text();
       let div = document.createElement("div");
       div.innerHTML = res;
@@ -62,11 +62,11 @@ async function displayalbum() {
             const e = array[index];
             if (e.href.includes("assets/song/")) {
                   let f = e.innerText.split("/")[0];
-                  let load = await fetch(`/assets/song/${f}/info.json`);
+                  let load = await fetch(`/public/assets/song/${f}/info.json`);
                   let res = await load.json();
                   document.querySelector(".container").innerHTML +=
                         `<div class="card">
-                              <img src="/assets/song/${f}/cover.jpeg" alt="${res.title}">
+                              <img src="/public/assets/song/${f}/cover.jpeg" alt="${res.title}">
                               <div data-folder="${f}" class="play">
                                     <img src="assets/svg/playlogo.svg" alt="">
                               </div>
@@ -89,7 +89,7 @@ async function displayalbum() {
 
 async function main(fold) {
       console.log("Spotify script loaded");
-      let load = await fetch(`/assets/song/${fold}/`);
+      let load = await fetch(`/public/assets/song/${fold}/`);
       let res = await load.text();
       let div = document.createElement("div");
       div.innerHTML = res;
@@ -269,30 +269,10 @@ Array.from(document.getElementsByClassName("play")).forEach((e) => {
 
 
 
-
-
-const config = [{
-      initDataTypes: ['cenc'],
-      audioCapabilities: [{
-            contentType: 'audio/mp4; codecs="mp4a.40.2"',
-            robustness: 'SW_SECURE_CRYPTO' // or 'HW_SECURE_ALL' depending on your needs
-      }]
-}];
-
-navigator.requestMediaKeySystemAccess('com.widevine.alpha', config)
-      .then(keySystemAccess => {
-            // Proceed with creating MediaKeys
-      });
-
-
-
-
-
-
 displayartist()
 
 async function displayartist() {
-      let load = await fetch(`/assets/artist`);
+      let load = await fetch(`/public/assets/artist`);
       let res = await load.text();
       let div = document.createElement("div");
       div.innerHTML = res;
@@ -302,11 +282,11 @@ async function displayartist() {
             const e = array[index];
             if (e.href.includes("assets/artist/")) {
                   let f = e.innerText.split("/")[0];
-                  let load = await fetch(`/assets/artist/${f}/infor.json`);
+                  let load = await fetch(`/public/assets/artist/${f}/infor.json`);
                   let res = await load.json();
                   document.querySelector(".mart").innerHTML +=
                         `<div class="artist">
-                              <div class="round"><img src="/assets/artist/${f}/cover.jpeg" alt=""></div>
+                              <div class="round"><img src="/public/assets/artist/${f}/cover.jpeg" alt=""></div>
                               <div data-folder="${f}" class="aplay">
                                     <img src="assets/svg/playlogo.svg" alt="">
                               </div>
@@ -328,8 +308,9 @@ async function displayartist() {
                   if (window.matchMedia("(max-width: 1250px)").matches) {
                         // Code for screens smaller than or equal to 1250px
                         document.querySelector(".floot").style.right = "0";
+                        document.querySelector(".floot").style.display = "block";
                         folder = item.currentTarget.dataset.folder;
-                        let load = await fetch(`/assets/artist/${folder}/infor.json`);
+                        let load = await fetch(`/public/assets/artist/${folder}/infor.json`);
                         let res = await load.json();
                         document.querySelector(".floot iframe").src = `${res.add}`;
                   }
@@ -340,22 +321,19 @@ async function displayartist() {
                         document.querySelector(".left").style.width = "20%";
                         document.querySelector(".right").style.width = "55%";
                         folder = item.currentTarget.dataset.folder;
-                        let load = await fetch(`/assets/artist/${folder}/infor.json`);
+                        let load = await fetch(`/public/assets/artist/${folder}/infor.json`);
                         let res = await load.json();
                         document.querySelector(".floot iframe").src = `${res.add}`;
                   }
             });
       });
 
-      // document.querySelector(".aplay").addEventListener("click", () => {
-      //       document.querySelector(".floot").style.display = "block";
-      //       document.querySelector(".left").style.width = "20%";
-      //       document.querySelector(".right").style.width = "55%";
-      // });
+      
 
       document.querySelector(".hb").addEventListener("click", () => {
             if (window.matchMedia("(max-width: 1250px)").matches) {
                   document.querySelector(".floot").style.right = "-100%";
+                  document.querySelector(".floot").style.display = "none";
             }
             else if (window.matchMedia("(min-width: 1251px)").matches) {
                   document.querySelector(".floot").style.display = "none";
