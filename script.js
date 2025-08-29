@@ -4,11 +4,11 @@ let playsong = new Audio();
 
 function pausect() {
       playsong.pause()
-      document.getElementById("bplay").src = "/assets/svg/play.svg";
+      document.getElementById("bplay").src = "svg/play.svg";
       function currenttk(tk) {
             document.querySelectorAll(".content ul li").forEach((e) => {
                   if (e.querySelector(".name").innerText == tk) {
-                        e.querySelector(".button img").src = "/assets/svg/wplay.svg";
+                        e.querySelector(".button img").src = "svg/wplay.svg";
                   }
             });
       }
@@ -21,16 +21,16 @@ let folder = "";
 let namel = [];
 
 function plays(track) {
-      playsong.src = `/assets/song/${folder}/` + track;
+      playsong.src = `song/${folder}/` + track;
       playsong.play();
-      document.getElementById("bplay").src = "/assets/svg/pause.svg";
+      document.getElementById("bplay").src = "svg/pause.svg";
       function currenttk(tk) {
             document.querySelectorAll(".content ul li").forEach((e) => {
                   if (e.querySelector(".name").innerText == tk) {
-                        e.querySelector(".button img").src = "/assets/svg/pause.svg";
+                        e.querySelector(".button img").src = "svg/pause.svg";
                   }
                   else {
-                        e.querySelector(".button img").src = "/assets/svg/wplay.svg";
+                        e.querySelector(".button img").src = "svg/wplay.svg";
                   }
             });
       }
@@ -52,7 +52,7 @@ function formatSecondsToMinutes(seconds) {
 displayalbum();
 
 async function displayalbum() {
-      let load = await fetch(`/assets/song`);
+      let load = await fetch(`song`);
       let res = await load.text();
       let div = document.createElement("div");
       div.innerHTML = res;
@@ -60,15 +60,15 @@ async function displayalbum() {
       let array = Array.from(r)
       for (let index = 0; index < array.length; index++) {
             const e = array[index];
-            if (e.href.includes("assets/song/")) {
+            if (e.href.includes("song/")) {
                   let f = e.innerText.split("/")[0];
-                  let load = await fetch(`/assets/song/${f}/info.json`);
+                  let load = await fetch(`song/${f}/info.json`);
                   let res = await load.json();
                   document.querySelector(".container").innerHTML +=
                         `<div class="card">
-                              <img src="/assets/song/${f}/cover.jpeg" alt="${res.title}">
+                              <img src="song/${f}/cover.jpeg" alt="${res.title}">
                               <div data-folder="${f}" class="play">
-                                    <img src="assets/svg/playlogo.svg" alt="">
+                                    <img src="svg/playlogo.svg" alt="">
                               </div>
                               <div class="card-content">
                                     <h4>${res.title}</h4>
@@ -89,7 +89,7 @@ async function displayalbum() {
 
 async function main(fold) {
       console.log("Spotify script loaded");
-      let load = await fetch(`/assets/song/${fold}/`);
+      let load = await fetch(`song/${fold}/`);
       let res = await load.text();
       let div = document.createElement("div");
       div.innerHTML = res;
@@ -102,7 +102,7 @@ async function main(fold) {
                   namel.push(name);
                   let ins = document.querySelector(".list");
                   setTimeout(() => {
-                        ins.innerHTML += `<li class="song"> <img src="assets/svg/song.svg" alt=""> <div class="name">${name}</div> <div class="button"><img src="assets/svg/wplay.svg" alt=""></div> </li>`;
+                        ins.innerHTML += `<li class="song"> <img src="svg/song.svg" alt=""> <div class="name">${name}</div> <div class="button"><img src="assets/svg/wplay.svg" alt=""></div> </li>`;
                         // Fade in the newly added item
                         const items = ins.querySelectorAll(".song");
                         const lastItem = items[items.length - 1];
@@ -119,7 +119,7 @@ async function main(fold) {
                                     }
                                     else if ((e.target.src).endsWith("pause.svg")) {
                                           pausect()
-                                          e.target.src = "/assets/svg/wplay.svg";
+                                          e.target.src = "svg/wplay.svg";
                                     }
                               });
                         });
@@ -127,7 +127,7 @@ async function main(fold) {
                         function currenttk(tk) {
                               document.querySelectorAll(".content ul li").forEach((e) => {
                                     if (e.querySelector(".name").innerText == tk) {
-                                          e.querySelector(".button img").src = "/assets/svg/pause.svg";
+                                          e.querySelector(".button img").src = "svg/pause.svg";
                                     }
                               });
                         }
@@ -163,18 +163,18 @@ async function main(fold) {
       document.getElementById("bplay").addEventListener("click", () => {
             if (playsong.paused) {
                   playsong.play();
-                  document.getElementById("bplay").src = "/assets/svg/pause.svg";
+                  document.getElementById("bplay").src = "svg/pause.svg";
                   let cs = document.querySelector(".namet").innerText + ".mp3"
 
                   document.querySelectorAll(".content ul li").forEach((e) => {
                         if (e.querySelector(".name").innerText == cs) {
-                              e.querySelector(".button img").src = "/assets/svg/pause.svg";
+                              e.querySelector(".button img").src = "svg/pause.svg";
                         }
                   });
             }
             else {
                   pausect();
-                  document.getElementById("bplay").src = "/assets/svg/play.svg";
+                  document.getElementById("bplay").src = "svg/play.svg";
             }
       });
 
@@ -228,27 +228,27 @@ document.querySelector(".volume").getElementsByTagName("input")[0].addEventListe
       playsong.volume = parseInt(e.target.value) / 100;
       values = e.target.value;
       if (e.target.value == 0) {
-            document.querySelector(".volume").getElementsByTagName("img")[0].src = "/assets/svg/volmute.svg";
+            document.querySelector(".volume").getElementsByTagName("img")[0].src = "svg/volmute.svg";
       }
       else if (e.target.value < 50 && e.target.value > 0) {
-            document.querySelector(".volume").getElementsByTagName("img")[0].src = "/assets/svg/vollow.svg";
+            document.querySelector(".volume").getElementsByTagName("img")[0].src = "svg/vollow.svg";
 
       }
       else {
-            document.querySelector(".volume").getElementsByTagName("img")[0].src = "/assets/svg/volfull.svg";
+            document.querySelector(".volume").getElementsByTagName("img")[0].src = "svg/volfull.svg";
       }
 
 });
 
 document.querySelector(".volume img").addEventListener("click", (e) => {
-      e.target.src = "/assets/svg/volmute.svg";
+      e.target.src = "svg/volmute.svg";
       if (document.querySelector(".volume input").value > 0) {
-            e.target.src = "/assets/svg/volmute.svg";
+            e.target.src = "svg/volmute.svg";
             document.querySelector(".volume input").value = 0;
             playsong.volume = 0;
       }
       else {
-            e.target.src = "/assets/svg/volfull.svg";
+            e.target.src = "svg/volfull.svg";
             document.querySelector(".volume input").value = 100;
             playsong.volume = 1;
       }
@@ -272,7 +272,7 @@ Array.from(document.getElementsByClassName("play")).forEach((e) => {
 displayartist()
 
 async function displayartist() {
-      let load = await fetch(`/assets/artist`);
+      let load = await fetch(`artist`);
       let res = await load.text();
       let div = document.createElement("div");
       div.innerHTML = res;
@@ -280,15 +280,15 @@ async function displayartist() {
       let array = Array.from(r)
       for (let index = 0; index < array.length; index++) {
             const e = array[index];
-            if (e.href.includes("assets/artist/")) {
+            if (e.href.includes("artist/")) {
                   let f = e.innerText.split("/")[0];
-                  let load = await fetch(`/assets/artist/${f}/infor.json`);
+                  let load = await fetch(`artist/${f}/infor.json`);
                   let res = await load.json();
                   document.querySelector(".mart").innerHTML +=
                         `<div class="artist">
-                              <div class="round"><img src="/assets/artist/${f}/cover.jpeg" alt=""></div>
+                              <div class="round"><img src="artist/${f}/cover.jpeg" alt=""></div>
                               <div data-folder="${f}" class="aplay">
-                                    <img src="assets/svg/playlogo.svg" alt="">
+                                    <img src="svg/playlogo.svg" alt="">
                               </div>
                               <div>
                                     ${res.title}
@@ -310,7 +310,7 @@ async function displayartist() {
                         document.querySelector(".floot").style.right = "0";
                         document.querySelector(".floot").style.display = "block";
                         folder = item.currentTarget.dataset.folder;
-                        let load = await fetch(`/assets/artist/${folder}/infor.json`);
+                        let load = await fetch(`artist/${folder}/infor.json`);
                         let res = await load.json();
                         document.querySelector(".floot iframe").src = `${res.add}`;
                   }
